@@ -1,0 +1,148 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+{% if authors %}
+<h3 class="title">Here are the journals and authors you cited more than once</h3>
+{% if useInitials %}
+    <p>(using {{ useInitials }} to match names, and showing all matches with {{ minFreq | round | int }} or more occurances)</p>
+{% endif %}
+{% endif %}
+
+<div id="accordion">
+<div class="row">
+{% if journals %}
+<div class="col-sm-6">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h3><i class="fa fa-plus"></i> Most Cited Journals</h3>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
+      <div class="card-body">
+        <table id="portfolio" class="table table-striped table-hover">
+            <tr>
+                <th>Journal</th>
+                <th>Frequency</th>
+            </tr>
+
+            {% for key in journals %}
+                {% if journals[key] >= minFreq %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ journals[key] }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+  </div>
+  </div>
+
+{% endif %}
+
+{% if authors %}
+<div class="col-sm-6">
+
+
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <h3><i class="fa fa-plus"></i> Most Cited Authors</h3>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo">
+      <div class="card-body">
+        <table id="portfolio" class="table table-striped table-hover">
+            <tr>
+                <th>Author</th>
+                <th>Frequency</th>
+            </tr>
+
+            {% for key in authors %}
+                {% if authors[key] >= minFreq %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ authors[key] }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+</div>
+</div>
+
+
+
+
+    <!-- text box, check boxes, dropdown, submit -->
+    <br><br>
+    <div id="myinputs">
+    <form action="/" method="post">
+        <div class="form-group">
+            <label for="bib"><h4>Paste your bibliography here, and adjust the settings below, to find your most cited authors and journals:</h4></label>
+            <br>
+            <textarea class="form-control" name="bib" id="bib" cols=100 rows=10 style="resize:both" placeholder="Paste bibliography here"></textarea>
+            <br>
+
+            <!-- choose which names/initials to match by -->
+            <label for="initials">How shall we match names?</label>
+            <select name="initials" id="initials" value="all_initials">
+                <option value="all_initials">All initials</option>
+                <option value="first_initial">First initial only</option>
+                <option value="all_names">All full first-names</option>
+                <option value="first_name">First first-name only</option>
+                <option value="surname-only">Surname only</option>
+            </select>
+
+            <br>
+            <!-- min freq to display -->
+            <label for="minFreq">Minimum freqency of citations to show: </label>
+            <input class="form-control" name="minFreq" id="minFreq" type="number" min="1" placeholder="2" value="2">
+
+            <br>
+            <label for="bibStyle">Select the bibliography styles:</label>
+            <select name="bibStyle" id="bibStyle" value="apa">
+                <option value="apa">APA</option>
+                <option value="bibtex">BibTeX</option>
+            </select>
+
+        </div>
+        <button class="btn btn-primary" type="submit" id="submit" name="submit" enabled>Submit</button>
+        <div id="warning-text">
+    </form>
+    </div>
+
+
+<script>
+    $(document).ready(function(){
+        // Add minus icon for collapse element which is open by default
+        $(".collapse.show").each(function(){
+        	$(this).prev(".card-header").find(".fa").addClass("fa-minus").removeClass("fa-plus");
+        });
+
+        // Toggle plus minus icon on show hide of collapse element
+        $(".collapse").on('show.bs.collapse', function(){
+        	$(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus");
+        }).on('hide.bs.collapse', function(){
+        	$(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus");
+        });
+    });
+</script>
+
+{% endblock %}

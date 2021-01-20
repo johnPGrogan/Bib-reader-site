@@ -1,0 +1,104 @@
+/* define colour scheme */
+
+:root {
+    --color1: #EAE7DC;
+    --color2: #D8C3A5;
+    --color3: #8E8D8A;
+    --color4: #D97064;
+    --color5: #E98074;
+}
+
+
+body {
+    background-color: var(--color1);
+}
+
+nav {
+    background-color: var(--color2);
+}
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+}
+
+/* colors for brand */
+nav .navbar-brand .navtext
+{
+    color: var(--color3);
+}
+
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+#portfolio {
+    border-collapse: collapse;
+    /*width: 40%;*/
+}
+
+#portfolio td, #portfolio th {
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin: 0 auto;
+}
+#portfolio th {
+    background-color:#b2b2b2;
+}
+#portfolio tr:nth-child(odd) {
+    background-color: #e2e2e2;
+}
+#portfolio tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+#portfolio th {
+  cursor: pointer;
+}
+
+.inset {
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid black;
+    background-color: #B8CDF8;
+}
+
+.color2 {
+    color: var(--color2);
+}
+
+#myinputs {
+    background-color: var(--color4);
+}
+
+#mytables {
+    background-color: var(--color5);
+}
+
+card {
+    width: 40%;
+    background-color: var(--color5);
+}
